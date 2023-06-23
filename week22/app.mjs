@@ -1,6 +1,6 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
-
+import adminRouter from './routes/admin.mjs';
 const app = express();
 
 app.use(express.static('public'));
@@ -8,6 +8,8 @@ app.use(express.static('public'));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
+
+app.use('/admin', adminRouter);
 
 app.get('/', (req, res) => {
   res.render('index', {query: req.query, time: new Date()});
@@ -18,7 +20,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/product/:id', (req, res) => {
-  res.send('The product id is:  ' + req.params.id)
+  res.json(req.params)
 });
 
 
