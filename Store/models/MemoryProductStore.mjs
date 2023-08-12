@@ -31,13 +31,43 @@ export class MemoryProductStore {
         this._products = data;
     }
 
+    create(item) {
+        item.id = Date.now().toString();
+        this._products.push(item);
+        return item;
+    }
+
     read(id) {
         let product = this._products.find(p => p.id === parseInt(id));
         if (!product) {
-            throw new Error('No product with such id.');
+            throw new Error(`No product with such id: ${id}`);
         }
 
         return product;
+    }
+
+    update(item) {
+        let index = this._products.findIndex(p => p.id === parseInt(item.id));
+        if (index === -1) {
+            throw new Error(`No product with such id: ${item.id}`);
+        }
+
+        this._products[index] = item;
+        return item;
+    }
+
+    delete(id) {
+        console.log('Delete called with', id);
+        let index = this._products.findIndex(p => p.id === parseInt(id));
+        console.log('Index is', index);
+        if (index === -1) {
+            console.log('No such index error', index);
+
+            throw new Error(`No product with such id: ${id}`);
+        }
+
+        console.log('Deleted', );
+        return this._products.splice(index, 1);
     }
 
     list() {
