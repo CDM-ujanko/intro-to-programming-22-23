@@ -32,7 +32,7 @@ export class MemoryProductStore {
     }
 
     create(item) {
-        item.id = Date.now().toString();
+        item.id = Date.now();
         this._products.push(item);
         return item;
     }
