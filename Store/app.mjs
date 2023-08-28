@@ -1,8 +1,12 @@
+import 'dotenv/config'
+
 import express from 'express';
 import {engine} from 'express-handlebars';
+import productRouter from './routes/product.mjs';
 
 const app = express();
-import {MemoryProductStore} from './models/MemoryProductStore.mjs';
+// import {MemoryProductStore} from './models/MemoryProductStore.mjs';
+import {FSProductStore} from './models/FSProductStore.mjs';
 
 app.use(express.static('public'));
 app.use(express.json())
@@ -12,43 +16,24 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-const store = new MemoryProductStore();
+const store = new FSProductStore();
+
+app.use('/product', productRouter);
 
 app.get('/', (req, res) => {
     res.render('index', {products: store.list()});
 });
 
-app.get('/product/create', (req, res) => {
-    res.render('product-edit', {});
-});
-
-app.post('/product', (req, res) => {
-    // res.json(store.create(req.body));
-    let product = store.create(req.body);
-    res.redirect(`/product/${product.id}`);
+app.get('*', (req, res) => {
+    res.status(404);
+    res.render('error', {code: 404, message: 'Could not find the page you are looking for.'});
 })
 
-app.get('/product/:id', (req, res) => {
-    res.render('product', {product: store.read(req.params.id)})
+app.use((err, req, res, next) => {
+    res.status(500);
+    res.render('error', { code: 500, message: err});
 });
 
-app.get('/product/edit/:id', (req, res) => {
-    res.render('product-edit', {product: store.read(req.params.id)})
+app.listen(process.env.PORT, () => {
+    console.log(`App listening on port ${process.env.PORT}`);
 });
-
-app.post('/product/:id', (req, res) => {
-    let product = req.body;
-    product.id = parseInt(req.params.id);
-    store.update(product);
-    res.redirect(`/product/${product.id}`);
-})
-
-app.delete('/product/:id', (req, res) => {
-    console.log('Endpoint hit!', req.params.id);
-    res.json(store.delete(req.params.id))
-});
-
-app.listen(3000, () => {
-    console.log('App listening on port 3000');
-});
-

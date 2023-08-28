@@ -1,3 +1,5 @@
+import {AbstractProductStore} from './AbstractProductStore.mjs';
+
 let data = [
     {
         "id": 0,
@@ -25,9 +27,10 @@ let data = [
     }
 ];
 
-export class MemoryProductStore {
+export class MemoryProductStore extends AbstractProductStore {
     _products;
     constructor() {
+        super();
         this._products = data;
     }
 
@@ -57,16 +60,11 @@ export class MemoryProductStore {
     }
 
     delete(id) {
-        console.log('Delete called with', id);
         let index = this._products.findIndex(p => p.id === parseInt(id));
-        console.log('Index is', index);
         if (index === -1) {
-            console.log('No such index error', index);
-
             throw new Error(`No product with such id: ${id}`);
         }
 
-        console.log('Deleted', );
         return this._products.splice(index, 1);
     }
 
