@@ -1,9 +1,9 @@
 import {Router} from 'express';
-// import {MemoryProductStore} from '../models/MemoryProductStore.mjs';
-import {FSProductStore} from '../models/FSProductStore.mjs';
+import {MemoryProductStore} from '../models/MemoryProductStore.mjs';
+// import {FSProductStore} from '../models/FSProductStore.mjs';
 
 const router = new Router();
-const store = new FSProductStore();
+const store = new MemoryProductStore();
 
 router.get('/', (req, res) => {
     res.render('product-edit', {});

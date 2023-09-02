@@ -5,8 +5,8 @@ import {engine} from 'express-handlebars';
 import productRouter from './routes/product.mjs';
 
 const app = express();
-// import {MemoryProductStore} from './models/MemoryProductStore.mjs';
-import {FSProductStore} from './models/FSProductStore.mjs';
+import {MemoryProductStore} from './models/MemoryProductStore.mjs';
+// import {FSProductStore} from './models/FSProductStore.mjs';
 
 app.use(express.static('public'));
 app.use(express.json())
@@ -16,7 +16,7 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-const store = new FSProductStore();
+const store = new MemoryProductStore();
 
 app.use('/product', productRouter);
 
