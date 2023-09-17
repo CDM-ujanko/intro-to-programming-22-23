@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Precedence</title>
+  <style>
+      #yellow {
+          color: yellow;
+      }
+
+      #purple {
+         color: purple;
+      }
+
+      .red {
+          color: red;
+      }
+
+    p {
+        color: darkolivegreen !important;
+    }
+    p {
+        color: bisque !important;
+    }
+
+  </style>
+</head>
+<body>
+<div>
+  <p>Text with a tag</p>
+  <p class="red">Text with a class</p>
+  <p class="red" id="yellow">Text with a id</p>
+  <p class="red" id="purple" style="color: aqua">Text with inline styles</p>
+</div>
+</body>
+</html>

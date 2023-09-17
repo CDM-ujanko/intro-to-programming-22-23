@@ -33,7 +33,7 @@ export class FSProductStore extends AbstractProductStore {
         return item;
     }
 
-     read(id) {
+     async read(id) {
         let product = this._products.find(p => p.id === parseInt(id));
         if (!product) {
             throw new Error(`No product with such id: ${id}`);
@@ -42,15 +42,31 @@ export class FSProductStore extends AbstractProductStore {
         return product;
     }
 
-    update(item) {
-        // super.update(item);
+    async update(item) {
+        let index = this._products.findIndex(p => p.id === parseInt(item.id));
+        if (index === -1) {
+            throw new Error(`No product with such id: ${item.id}`);
+        }
+
+        this._products[index] = item;
+        await writeData(this._products);
+
+        return item;
     }
 
-    delete(id) {
+    async delete(id) {
         // super.delete(id);
+        let index = this._products.findIndex(p => p.id === parseInt(id));
+        if (index === -1) {
+            throw new Error(`No product with such id: ${id}`);
+        }
+
+        let item = this._products.splice(index, 1);
+        await writeData(this._products);
+        return item;
     }
 
-    list() {
+    async list() {
         return this._products;
     }
 }
