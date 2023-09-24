@@ -45,6 +45,28 @@
     "name": "test 2",
     "price": "1234",
     "description": "Sollicitudin dis id platea maximus adipiscing odio eu pellentesque augue posuere nam quam integer eros aliquet, nisl enim non habitasse purus congue venenatis aliquam vehicula euismod lacus primis sit. Nibh auctor rutrum tempor maecenas consequat aliquam efficitur varius, nulla vivamus elit fermentum maximus senectus ex mi facilisi, aenean ultricies tortor proin ac orci dictum. Cubilia massa condimentum nostra laoreet ac litora diam dictum, ultrices praesent ut amet mus enim tempor arcu turpis, molestie sit nibh dolor sagittis phasellus ornare.",
-    "id": 1693133164458
+    "id": 1693133164458,
+    "preview": "/images/test.jpg"
+  },
+  {
+    "name": "Lopata",
+    "price": "123",
+    "description": "Posuere adipiscing at orci pulvinar ridiculus bibendum iaculis magna condimentum diam platea volutpat, rutrum lobortis accumsan nulla malesuada tempus potenti nam fermentum lectus leo. Tellus per malesuada aenean eleifend fringilla cursus natoque convallis, imperdiet libero maecenas quam maximus torquent etiam. Taciti ante ipsum feugiat fames urna massa magna dignissim nec primis suscipit volutpat velit lectus eros mi placerat curae, tempor vehicula nisi facilisi ultrices parturient sollicitudin curabitur convallis metus eleifend lacus mattis sapien platea finibus.",
+    "preview": "/images/test.jpg",
+    "id": 1695575043327
+  },
+  {
+    "name": "Test",
+    "price": "12",
+    "description": "123",
+    "preview": "/images/test.jpg",
+    "id": 1695575372657
+  },
+  {
+    "name": "123",
+    "price": "123",
+    "description": "123",
+    "preview": "/images/1695575638224.jpg",
+    "id": 1695575638251
   }
 ]

@@ -9,6 +9,8 @@ const app = express();
 import {FSProductStore} from './models/FSProductStore.mjs';
 
 app.use(express.static('public'));
+app.use('/images/', express.static('upload'));
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 

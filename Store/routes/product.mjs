@@ -1,9 +1,22 @@
 import {Router} from 'express';
+import multer from 'multer';
+import * as path from 'path';
 // import {MemoryProductStore} from '../models/MemoryProductStore.mjs';
 import {FSProductStore} from '../models/FSProductStore.mjs';
 
 const router = new Router();
 const store = new FSProductStore();
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'upload/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+})
+
+const upload = multer({ storage: storage});
 
 router.get('/', (req, res) => {
     res.render('product-edit', {});
@@ -17,8 +30,13 @@ router.get('/edit/:id', async (req, res) => {
     res.render('product-edit', {product: await store.read(req.params.id)})
 });
 
-router.post('/', async (req, res) => {
-    let product = await store.create(req.body);
+router.post('/', upload.single('preview'), async (req, res) => {
+    console.log(req.file);
+    let p = req.body;
+    if (req.file) {
+        p.preview = '/images/' + req.file.filename;
+    }
+    let product = await store.create(p);
     res.redirect(`/product/${product.id}`);
 })
 

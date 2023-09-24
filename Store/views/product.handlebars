@@ -1,6 +1,6 @@
 <div class="container">
   <h1>{{ product.name }}</h1>
-  <img src="{{ product.previewImage }}">
+  {{#if product.preview }}<img src="{{ product.preview }}" alt="preview" width="400px">{{/if}}
   <p class="card-text">{{ product.description }}</p>
   <a href="#" class="btn btn-primary">${{ product.price }} Add to cart</a>
   <a href="/product/edit/{{ product.id }}" class="btn btn-primary">Edit</a>
