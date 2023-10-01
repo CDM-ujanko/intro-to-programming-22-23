@@ -40,8 +40,9 @@ router.post('/', upload.single('preview'), async (req, res) => {
     res.redirect(`/product/${product.id}`);
 })
 
-router.post('/:id', async (req, res) => {
+router.post('/:id',  upload.single('preview'), async (req, res) => {
     let product = req.body;
+    console.log('PRODUCT BODY!', product);
     product.id = parseInt(req.params.id);
     await store.update(product);
     res.redirect(`/product/${product.id}`);

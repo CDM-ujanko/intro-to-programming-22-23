@@ -1,6 +1,11 @@
 <div class="container">
-  ----- {{ product }} !!!!!!
-  <form action="/product/{{ product.id }}" method="POST"  enctype="multipart/form-data">
+  {{#if product }}
+    EDIT MODE
+  {{else}}
+    CREATE MODE
+  {{/if}}
+
+  <form action="/product/{{ product.id }}" method="POST" enctype="multipart/form-data">
     <div class="mb-2">
       <label for="product-name" class="form-label">Product Name</label>
       <input type="text" name="name" id="product-name" required class="form-control" value="{{ product.name }}">
@@ -11,10 +16,15 @@
       <input type="number" name="price" id="product-price" required class="form-control" value="{{ product.price }}">
     </div>
 
+    {{#if product }}
+      <img src="{{ product.preview }}" alt="preview" width="400px" id="preview">
+      <input hidden type="text" name="preview" value="{{ product.preview }}">
+    {{else}}
     <div class="mb-2">
       <label for="product-preview-image" class="form-label">Product Image</label>
       <input type="file" name="preview" id="product-preview-image" required class="form-control" >
     </div>
+    {{/if}}
 
     <div class="mb-2">
       <label for="product-description" class="form-label">Description: </label>
@@ -23,5 +33,16 @@
 
     <button class="btn btn-primary" type="submit">{{#if product }}Update{{else}}Create{{/if}}</button>
   </form>
+
+  <script>
+    // console.log('Zdravo ja sam JS koji zivi u Chromu!')
+    // setTimeout(() => {
+    //     let image = document.getElementById('preview');
+    //     image.parentElement.innerHTML += '<p>I got added</p>'
+    //     image.remove();
+    //     console.log('I executed!');
+    //     document.body.style.background = 'orange';
+    // }, 3000)
+  </script>
 </div>
 

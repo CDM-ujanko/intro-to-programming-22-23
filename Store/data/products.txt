@@ -4,7 +4,7 @@
     "name": "Mouse",
     "price": 15,
     "description": "A nice Logitech mouse",
-    "previewImage": "http://placehold.it/32x32",
+    "preview": "http://placehold.it/32x32",
     "images": []
   },
   {
@@ -12,7 +12,7 @@
     "name": "Keyboard",
     "price": 125,
     "description": "Nascetur fermentum fringilla enim sapien tincidunt torquent est vitae feugiat blandit sit senectus massa suscipit mi justo metus aenean mus accumsan quisque vehicula convallis integer cursus felis amet orci dui ridiculus litora aliquam iaculis maximus laoreet finibus gravida erat habitasse consequat viverra ornare ultrices nulla nostra nibh porttitor lorem elementum nam ligula at aptent duis aliquet cras sodales vestibulum ullamcorper cubilia ultricies donec lobortis lacinia primis libero dictum mauris hendrerit pharetra tortor euismod dapibus vivamus risus tempus rhoncus semper dis montes quam praesent vulputate ad condimentum ac volutpat venenatis odio eleifend sagittis arcu augue inceptos egestas adipiscing tempor sociosqu morbi",
-    "previewImage": "http://placehold.it/32x32",
+    "preview": "http://placehold.it/32x32",
     "images": []
   },
   {
@@ -20,26 +20,8 @@
     "name": "Glass",
     "price": 17,
     "description": "Nascetur fermentum fringilla enim sapien tincidunt torquent est vitae feugiat blandit sit senectus massa suscipit mi justo metus aenean mus accumsan quisque vehicula convallis integer cursus felis amet orci dui ridiculus litora aliquam iaculis maximus laoreet finibus gravida",
-    "previewImage": "http://placehold.it/32x32",
+    "preview": "http://placehold.it/32x32",
     "images": []
-  },
-  {
-    "name": "Lopata",
-    "price": "12345",
-    "description": "Inceptos cubilia litora leo nulla ex condimentum nostra duis donec habitant mi diam consectetur lacus, viverra tellus sollicitudin aptent mauris class etiam nascetur mollis massa velit laoreet scelerisque. Duis dignissim nisi himenaeos gravida iaculis est sagittis sed, amet magnis sociosqu ad augue egestas pellentesque aptent, laoreet nostra quis dui ornare nam euismod. Ridiculus consectetur in faucibus sed iaculis ac hendrerit platea, orci sapien dis penatibus vivamus curabitur imperdiet morbi maecenas, vitae proin eu purus posuere a etiam.",
-    "id": 1693132564031
-  },
-  {
-    "name": "Keyboard !!!!",
-    "price": "6667",
-    "description": "Inceptos posuere magnis aenean dis vestibulum elit est faucibus mattis augue curabitur fames fusce quam pharetra mi lobortis magna, pulvinar dapibus scelerisque potenti mollis auctor rhoncus praesent eleifend porttitor laoreet cursus proin amet ac arcu torquent. Ipsum molestie nec nisi inceptos consequat metus pulvinar arcu eget libero vulputate phasellus fermentum amet, faucibus sagittis enim mattis erat adipiscing tempor nostra augue montes aenean habitant. Odio vestibulum enim viverra dictum in est vitae ante consequat massa phasellus egestas aliquet rhoncus, aenean ultrices curabitur inceptos fermentum ex nascetur ipsum nisl dignissim vel quam libero.",
-    "id": 1693132653890
-  },
-  {
-    "name": "Test",
-    "price": "123",
-    "description": "Hac imperdiet tempus sapien curabitur orci nisi sollicitudin eu metus pellentesque, adipiscing id in odio quisque fames malesuada eros egestas. Viverra sit imperdiet suscipit mauris adipiscing efficitur quis lacinia quam, placerat platea risus tristique vitae fusce condimentum suspendisse. Mattis dignissim aliquam adipiscing habitasse ac est elementum ante eros magnis vestibulum ullamcorper nec conubia ex viverra sem, nisi nisl tempor posuere sodales leo velit iaculis cras lectus morbi tincidunt fusce orci per.",
-    "id": 1693133139375
   },
   {
     "name": "test 2",
@@ -49,10 +31,10 @@
     "preview": "/images/test.jpg"
   },
   {
-    "name": "Lopata",
-    "price": "123",
-    "description": "Posuere adipiscing at orci pulvinar ridiculus bibendum iaculis magna condimentum diam platea volutpat, rutrum lobortis accumsan nulla malesuada tempus potenti nam fermentum lectus leo. Tellus per malesuada aenean eleifend fringilla cursus natoque convallis, imperdiet libero maecenas quam maximus torquent etiam. Taciti ante ipsum feugiat fames urna massa magna dignissim nec primis suscipit volutpat velit lectus eros mi placerat curae, tempor vehicula nisi facilisi ultrices parturient sollicitudin curabitur convallis metus eleifend lacus mattis sapien platea finibus.",
+    "name": "Lopata v2",
+    "price": "66",
     "preview": "/images/test.jpg",
+    "description": "Posuere adipiscing at orci pulvinar ridiculus bibendum iaculis magna condimentum diam platea volutpat, rutrum lobortis accumsan nulla malesuada tempus potenti nam fermentum lectus leo. Tellus per malesuada aenean eleifend fringilla cursus natoque convallis, imperdiet libero maecenas quam maximus torquent etiam. Taciti ante ipsum feugiat fames urna massa magna dignissim nec primis suscipit volutpat velit lectus eros mi placerat curae, tempor vehicula nisi facilisi ultrices parturient sollicitudin curabitur convallis metus eleifend lacus mattis sapien platea finibus.",
     "id": 1695575043327
   },
   {
