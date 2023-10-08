@@ -6,14 +6,16 @@ import multer from 'multer';
 import * as path from 'path';
 // Routes
 import useProductRouter from './routes/product.mjs';
+import useApiRouter from './routes/api.mjs';
 
 // import {MemoryProductStore} from './models/MemoryProductStore.mjs';
 import {FSProductStore} from './models/FSProductStore.mjs';
+import {SqliteProductStore} from './models/SqliteProductStore.mjs';
 
 // Create new app
 const app = express();
 // Create a new instance of the data store.
-const store = new FSProductStore();
+const store = new SqliteProductStore();
 
 // Create new storage on the disk for multer
 const storage = multer.diskStorage({
@@ -41,9 +43,12 @@ app.set('views', './views');
 
 // Pass store and upload to the router.
 app.use('/product', useProductRouter(store, upload));
+app.use('/api', useApiRouter(store, upload));
 
 //Homepage
 app.get('/', async (req, res) => {
+
+    console.log({products: await store.list()});
     res.render('index', {products: await store.list()});
 });
 
