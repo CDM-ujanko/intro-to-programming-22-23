@@ -9,7 +9,7 @@ import useProductRouter from './routes/product.mjs';
 import useApiRouter from './routes/api.mjs';
 
 // import {MemoryProductStore} from './models/MemoryProductStore.mjs';
-import {FSProductStore} from './models/FSProductStore.mjs';
+// import {FSProductStore} from './models/FSProductStore.mjs';
 import {SqliteProductStore} from './models/SqliteProductStore.mjs';
 
 // Create new app
@@ -47,8 +47,6 @@ app.use('/api', useApiRouter(store, upload));
 
 //Homepage
 app.get('/', async (req, res) => {
-
-    console.log({products: await store.list()});
     res.render('index', {products: await store.list()});
 });
 
