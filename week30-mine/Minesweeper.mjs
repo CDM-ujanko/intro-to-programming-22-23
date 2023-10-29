@@ -1,3 +1,6 @@
+import Prompt from 'prompt-sync';
+const prompt = Prompt();
+
 const FILED_SIZE = 10;
 const MINE_COUNT = 10;
 
@@ -40,6 +43,7 @@ const COLORS = {
 class Point {
     hasBomb;
     #count = 0;
+    #open = false;
 
     /**
      * Initialize the pont
@@ -64,11 +68,23 @@ class Point {
         this.#count++;
     }
 
+    open() {
+        this.#open = true;
+    }
+
+    get isOpen() {
+        return this.#open;
+    }
+
     /**
      * Overwrite the to string method.
      * @return {string}
      */
     toString() {
+        if (!this.#open) {
+            return 'X'
+        }
+
         if (this.hasBomb) {
             return `${COLORS.fg.cyan}B${COLORS.reset}`;
         }
@@ -90,6 +106,7 @@ class Point {
             color = COLORS.fg.yellow;
         }
 
+        // return color + ' ' + this.count + COLORS.reset;
         return `${color}${this.count}${COLORS.reset}`;
     }
 }
@@ -113,55 +130,60 @@ function generateMines() {
  * Generate the table based on the size of the grid.
  */
 function generateTable() {
-    let field = [];
+    let table = [];
     let mines = generateMines();
+    let bombs = [];
 
     for (let i = 0; i < FILED_SIZE; i++) {
         // Create fow
-        field.push([]);
+        table.push([]);
 
         for (let j = 0; j < FILED_SIZE; j++) {
-            let point = new Point(mines.pop());
-            field[i].push(point);
+            let hasBomb = mines.pop();
+            let point = new Point(hasBomb);
+            table[i].push(point);
+
+            if (hasBomb) {
+                bombs.push({i: i, j: j});
+            }
         }
     }
-    return field;
+
+    bombs.forEach((bomb) => {
+        let adjacent = findAdjacent(table, bomb.i, bomb.j);
+        adjacent.forEach((p) => p.add());
+    })
+
+    return table;
 }
 
 /**
- * Count the mines.
- * NOTE: There is a better way of doing this (we are already know where the bombs are when we generate the table)
- * @param {Array} table The initial table.
- * @return {Array} The table with updated counts.
+ * Find all the adjacent points.
+ * @param {Array} table The table.
+ * @param {number} i The I coordinate
+ * @param {Number} j The J Coordinate
+ * @return {Array<Point>} The array for adjacent Points.
  */
-function countMines(table) {
-    const SIZE_X = table[0].length;
-    const SIZE_Y = table.length;
+function findAdjacent(table, i, j) {
+    const COMBINATIONS = [
+        {i: -1, j: -1},
+        {i: -1, j: 0},
+        {i: -1, j: 1},
+        {i: 0, j: -1},
+        {i: 0, j: 1},
+        {i: 1, j: -1},
+        {i: 1, j: 0},
+        {i: 1, j: 1}
+    ];
 
-    for (let i = 0; i < SIZE_Y; i++) {
-        for (let j = 0; j < SIZE_X; j++) {
-            if (table[i][j].hasBomb) {
-                continue;
-            }
-
-            if (j > 0 && table[i][j - 1].hasBomb) {
-                table[i][j].add();
-            }
-
-            if (j !== SIZE_Y - 1 && table[i][j + 1].hasBomb) {
-                table[i][j].add();
-            }
-
-            if (i > 0 && table[i - 1][j].hasBomb) {
-                table[i][j].add();
-            }
-
-            if (i !== SIZE_X - 1 && table[i + 1][j].hasBomb) {
-                table[i][j].add();
-            }
+    let adjacent = [];
+    COMBINATIONS.forEach((p) => {
+        if (table[i + p.i] && table[i + p.i][j + p.j]) {
+            adjacent.push(table[i + p.i][j + p.j])
         }
-    }
-    return table;
+    })
+
+    return adjacent;
 }
 
 /**
@@ -183,17 +205,41 @@ function printTable(table) {
     })
 }
 
-// t[i][j]
-// levo desno
-// t[i][j-1], t[i][j+1]
-// gore dole
-// t[i-1][j], t[i+1][j]
-// leve diagonale
-// t[i-1][j-1], t[i+1][j-1]
-// desne diagonale
-// t[i-1][j+1], t[i+1][j+1]
+function playGame() {
+    let mineCount = MINE_COUNT;
+    let table = generateTable();
 
+    while (mineCount > 0) {
+        printTable(table);
+        let pick = prompt('What field should we open i,j? ');
+        let coordinates = pick.split(',');
+        if (coordinates.length !== 2) {
+            console.log('Invalid coordinates');
+            continue;
+        }
 
-let table = generateTable();
-table = countMines(table);
-printTable(table);
+        let i = parseInt(coordinates[0]);
+        let j = parseInt(coordinates[1]);
+
+        if (i > FILED_SIZE - 1 || j > FILED_SIZE -1) {
+            console.log('Invalid coordinates');
+            continue;
+        }
+
+        let point = table[i][j];
+        if (point.isOpen) {
+            console.log('The Field is already open');
+            continue;
+        }
+
+        point.open();
+        if (point.hasBomb) {
+            console.log('GAME OVER');
+            table.forEach(row => row.forEach(p => p.open()))
+            return;
+        }
+    }
+
+}
+
+playGame();
