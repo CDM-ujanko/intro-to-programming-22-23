@@ -7,6 +7,7 @@ import * as path from 'path';
 // Routes
 import useProductRouter from './routes/product.mjs';
 import useApiRouter from './routes/api.mjs';
+import useGamesRouter from './routes/games.mjs';
 
 // import {MemoryProductStore} from './models/MemoryProductStore.mjs';
 // import {FSProductStore} from './models/FSProductStore.mjs';
@@ -44,6 +45,7 @@ app.set('views', './views');
 // Pass store and upload to the router.
 app.use('/product', useProductRouter(store, upload));
 app.use('/api', useApiRouter(store, upload));
+app.use('/game', useGamesRouter());
 
 //Homepage
 app.get('/', async (req, res) => {

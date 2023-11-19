@@ -1,0 +1,73 @@
+<div class="container">
+  <h1>Minesweeper</h1>
+
+  <ul>
+  {{#each ms.table}}
+    <li>
+    {{#each this }}
+        <div class="point" data-has-bomb="{{ hasBomb }}" data-count="{{ count }}">
+          <div class="point-content">
+            {{#if hasBomb }}
+                B
+            {{else}}
+              {{ count }}
+            {{/if}}
+          </div>
+        </div>
+    {{/each}}
+    </li>
+  {{/each}}
+  </ul>
+</div>
+
+<style>
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: block;
+  }
+
+  .point {
+    width: 40px;
+    height: 40px;
+    margin: 3px;
+    display: inline-block;
+    background: sienna;
+    cursor: pointer;
+
+    text-align: center;
+    line-height: 40px;
+  }
+
+  .point .point-content {
+    visibility: hidden;
+  }
+
+  .point.opened .point-content {
+    visibility: visible;
+  }
+</style>
+<script>
+
+  let points = document.querySelectorAll('.point');
+  console.log(points);
+
+  points.forEach((point) => {
+    point.addEventListener('click', (e) => {
+      console.log(e);
+      let p = e.target;
+
+      p.classList.add('opened');
+      console.log(p.dataset.hasBomb)
+      if (p.dataset.hasBomb) {
+        points.forEach(p => p.classList.add('opened'));
+        alert('GAME OVER!');
+      }
+      console.log(p.dataset.count)
+    });
+  })
+
+</script>
