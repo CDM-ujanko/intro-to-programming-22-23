@@ -2,21 +2,28 @@
   <h1>Minesweeper</h1>
 
   <ul>
-  {{#each ms.table}}
-    <li>
-    {{#each this }}
-        <div class="point" data-has-bomb="{{ hasBomb }}" data-count="{{ count }}">
-          <div class="point-content">
-            {{#if hasBomb }}
+    {{#each ms.table}}
+      <li>
+        {{#each this }}
+          <div class="point"
+               data-has-bomb="{{ hasBomb }}"
+               data-count="{{ count }}"
+               data-i="{{ @../index }}"
+               data-j="{{ @index }}">
+            <div class="point-content">
+              {{#if hasBomb }}
                 B
-            {{else}}
-              {{ count }}
-            {{/if}}
+              {{else}}
+                {{ count }}
+              {{/if}}
+            </div>
+            <div class="point-marked">
+              M
+            </div>
           </div>
-        </div>
+        {{/each}}
+      </li>
     {{/each}}
-    </li>
-  {{/each}}
   </ul>
 </div>
 
@@ -27,46 +34,143 @@
   }
 
   li {
-    display: block;
+    display: flex;
   }
 
   .point {
     width: 40px;
     height: 40px;
     margin: 3px;
-    display: inline-block;
+    display: block;
     background: sienna;
     cursor: pointer;
 
     text-align: center;
     line-height: 40px;
+
   }
 
   .point .point-content {
-    visibility: hidden;
+    display: none;
   }
 
-  .point.opened .point-content {
-    visibility: visible;
+  .point.opened:not(.marked) .point-content {
+    display: inline-block;
   }
+
+  .point .point-marked {
+    display: none;
+  }
+
+  .point.marked .point-marked {
+    display: inline-block;
+  }
+  
 </style>
 <script>
+  const MINE_COUNT = 10;
 
-  let points = document.querySelectorAll('.point');
-  console.log(points);
+  /**
+   * Find all the adjacent points.
+   * @param {Array} table The table.
+   * @param {number} i The I coordinate
+   * @param {Number} j The J Coordinate
+   * @return {Array<Point>} The array for adjacent Points.
+   */
+  function findAdjacent(table, i, j) {
+    const COMBINATIONS = [
+      {i: -1, j: -1},
+      {i: -1, j: 0},
+      {i: -1, j: 1},
+      {i: 0, j: -1},
+      {i: 0, j: 1},
+      {i: 1, j: -1},
+      {i: 1, j: 0},
+      {i: 1, j: 1}
+    ];
+
+    let adjacent = [];
+    COMBINATIONS.forEach((p) => {
+      if (table[i + p.i] && table[i + p.i][j + p.j]) {
+        adjacent.push(table[i + p.i][j + p.j])
+      }
+    })
+
+    return adjacent;
+  }
+
+  let points = Array.from(document.querySelectorAll('.point'));
+  let marked = [];
+  let table = [];
+
+  for (let i = 0; i < MINE_COUNT; i++) {
+    table.push(points.slice(i * 10, i * 10 + 10));
+  }
+
+  console.log(points, table);
 
   points.forEach((point) => {
     point.addEventListener('click', (e) => {
-      console.log(e);
-      let p = e.target;
 
-      p.classList.add('opened');
-      console.log(p.dataset.hasBomb)
-      if (p.dataset.hasBomb) {
-        points.forEach(p => p.classList.add('opened'));
-        alert('GAME OVER!');
+      point.classList.add('opened');
+      console.log(e, e.altKey)
+
+      let mark = e.altKey;
+
+      let hasBomb = point.dataset.hasBomb === 'true';
+      let count = parseInt(point.dataset.count);
+      let i = parseInt(point.dataset.i);
+      let j = parseInt(point.dataset.j);
+      console.log(hasBomb, count);
+
+
+      // TODO
+      if (mark) {
+        point.classList.add('marked');
+        marked.push(point);
+
+        if (MINE_COUNT === marked.length && marked.every((p) => p.dataset.hasBomb)) {
+          table.forEach(row => row.forEach(p => p.open()))
+          console.log('YOU WIN!');
+        }
+
+        return;
       }
-      console.log(p.dataset.count)
+
+      console.log('after!');
+
+      point.classList.add('opened');
+      if (hasBomb) {
+        points.forEach(p => p.classList.add('opened'));
+        console.log('GAME OVER');
+        alert('Game Over!');
+        return;
+      }
+
+      if (count === 0) {
+        let toOpen = findAdjacent(table, i, j);
+        while (toOpen.length > 0) {
+          let p = toOpen.pop();
+          let hasBomb = p.dataset.hasBomb === 'true';
+          let count = parseInt(p.dataset.count);
+
+          if (!hasBomb && count === 0) {
+            let adj = findAdjacent(table, parseInt(p.dataset.i), parseInt(point.dataset.j));
+            adj.forEach((point) => {
+              let hasBomb = point.dataset.hasBomb === 'true';
+              let isOpen = point.classList.contains('opened');
+
+              if (!hasBomb && !isOpen && !toOpen.includes(point)) {
+                toOpen.push(point)
+              }
+            })
+          }
+
+          if (!hasBomb) {
+            p.classList.add('opened');
+          }
+        }
+      }
     });
   })
 
