@@ -1,0 +1,19 @@
+{
+  "name": "week31-font-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "nodemon app.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
