@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Events</title>
+
+  <style>
+    #div2 {
+        padding: 100px;
+        background: azure;
+    }
+
+    #div1 {
+        padding: 100px;
+        background: pink;
+    }
+  </style>
+</head>
+<body>
+<div id="div1">
+  ancestor
+  <div id="div2">
+    parent
+    <button id="myButton">I am a dumb button!</button>
+    <a id="link" href="https://google.com">Go to the googs!</a>
+  </div>
+</div>
+<script>
+    let button = document.getElementById('myButton');
+    let link = document.getElementById('link');
+    let parent = document.getElementById('div2');
+    let ancestor = document.getElementById('div1');
+    // button.onclick = (e) => {
+    //     console.log('! got clicked!');
+    // }
+    //
+    // button.onclick = (e) => {
+    //     console.log('second event Listener');
+    // }
+
+    // function myFunc() {
+    //     console.log('I got clicked!');
+    // }
+
+    // function random(number) {
+    //     return Math.floor(Math.random() * (number + 1));
+    // }
+    //
+    // button.addEventListener('click', (e) => {
+    //     console.log('addEventListener ! got clicked!');
+    //     const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+    //     document.body.style.backgroundColor = rndCol;
+    // });
+
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Link Click', e.target);
+    })
+
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('Button Click', e.target);
+    });
+
+    parent.addEventListener('click', (e) => {
+        console.log('Parent Click!', e.target);
+    })
+
+    let ancestorHandler = (e) => {
+        console.log('Ancestor Click!', e.target);
+    };
+
+    ancestor.addEventListener('click', ancestorHandler);
+
+
+    setTimeout(() => {
+        ancestor.removeEventListener('click', ancestorHandler)
+    }, 5000)
+
+</script>
+</body>
+</html>
