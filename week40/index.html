@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Events</title>
+  <style>
+      .button {
+          font-weight: bold;
+      }
+
+      #button-1 {
+          color: red;
+      }
+
+      .red {
+          color: red
+      }
+
+      .invalid-feedback {
+          display: none;
+          color: red;
+      }
+
+      .invalid-feedback.show {
+          display: block;
+      }
+
+      .form-block {
+          padding: 10px 0;
+      }
+
+  </style>
+</head>
+<body>
+<button class="button" id="button-1">Button 1</button>
+<button class="button red" id="button-2">Button 2</button>
+<button class="button red" id="button-3">Button 3</button>
+<button class="button" id="button-4">Button 4</button>
+
+<input class="red" id="input-1">
+
+<br>
+<br>
+<br>
+
+<form action="/" method="GET">
+  <div class="form-block">
+    <label for="input-2">Name:</label>
+    <input type="text" class="red" id="input-2">
+    <div class="invalid-feedback">The input must be grater than 5!</div>
+  </div>
+
+  <div class="form-block">
+    <label for="input-3">
+      Last Name
+    </label>
+    <input type="text" id="input-3">
+    <div class="invalid-feedback">The input must be grater than 5!</div>
+  </div>
+
+  <div class="form-block">
+    <label for="select-1">
+      Option
+    </label>
+    <select id="select-1">
+      <option value="" disabled selected>Please select an option</option>
+      <option value="1"> Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+    </select>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+<script src="index.js"></script>
+</body>
+</html>
