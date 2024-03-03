@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TODO</title>
+</head>
+<body>
+<div id="app">
+  <form v-on:submit.prevent="addItem">
+    <input type="text" v-model="text">
+    <button type="submit">Add</button>
+  </form>
+
+  input value: {{ text }}
+  <ul>
+    <li v-for="(item, i) in todo">{{ i }}: {{ item }}<button> Done!</button></li>
+  </ul>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const {createApp} = Vue;
+
+    createApp({
+        data() {
+            return {
+                todo: ['By milk'],
+                text: ''
+            }
+        },
+        methods: {
+            addItem() {
+                if (!this.text.length) {
+                    return;
+                }
+
+                this.todo.push(this.text);
+                this.text = '';
+            }
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>

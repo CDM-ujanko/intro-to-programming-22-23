@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add one</title>
+</head>
+<body>
+
+
+<button id="button-1">Clicked 0 times</button>
+
+<script>
+  let button = document.getElementById('button-1');
+
+  let count = 0;
+  console.log(button);
+
+  button.addEventListener('click', (e) => {
+      console.log(e);
+      count++;
+      button.innerText = `Clicked ${count} ${count === 1 ? 'time' : 'times'}`;
+  })
+</script>
+</body>
+</html>
