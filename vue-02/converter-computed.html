@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Converter</title>
+</head>
+<body>
+<div id="ovde-je-vue-instanca">
+  <button v-on:click="flip">{{ dir ? 'Convert to  C' : 'Convert to F'}}</button>
+
+  <div v-if="dir">
+    <label> C:
+    <input type="number" v-model="cel">
+    </label>
+    <p>F: {{ fComp }}</p>
+  </div>
+
+  <div v-else>
+    <label> F:
+      <input type="number" v-model="far">
+    </label>
+    <p>C: {{ cComp }}</p>
+  </div>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const {createApp} = Vue;
+
+    let app = createApp({
+        data() {
+            return {
+                dir: true,
+                far: 32,
+                cel: 0,
+            }
+        },
+
+        computed: {
+          cComp() {
+              return (this.far - 32) * (5 / 9)
+          },
+            fComp() {
+              return (this.cel * 9 / 5) + 32
+            }
+        },
+
+        methods: {
+            flip() {
+                this.dir = !this.dir;
+            },
+
+        }
+    });
+
+    console.log(app);
+
+    app.mount('#ovde-je-vue-instanca');
+</script>
+
+</body>
+</html>

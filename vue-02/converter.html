@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Converter</title>
+</head>
+<body>
+<div id="ovde-je-vue-instanca">
+  <div>
+    <button v-on:click="flip">{{ dir ? 'Convert to  C' : 'Convert to F'}}</button>
+
+    <form v-if="dir" v-on:submit.prevent="changeC">
+      <input type="number" v-model="cel">
+      <button type="submit"> fahrenheit</button>
+    </form>
+
+    <form v-else v-on:submit.prevent="changeF">
+      <input type="number" v-model="far">
+      <button type="submit"> celsius</button>
+
+    </form>
+  </div>
+  <p>
+
+    {{ dir }}
+    {{far}}
+    {{cel}}
+  </p>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const {createApp} = Vue;
+
+    let app = createApp({
+        data() {
+            return {
+                far: '',
+                cel: '',
+                dir: true
+            }
+        },
+        methods: {
+            changeC() {
+                this.far = (this.cel * 9 / 5) + 32
+
+            },
+
+            changeF() {
+                this.cel = (this.far - 32) * (5 / 9)
+
+            },
+
+            flip() {
+                this.dir = !this.dir;
+            },
+
+        }
+    });
+
+    console.log(app);
+
+    app.mount('#ovde-je-vue-instanca');
+</script>
+
+</body>
+</html>
