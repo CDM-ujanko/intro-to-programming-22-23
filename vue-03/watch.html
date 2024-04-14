@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computed Properties</title>
+</head>
+<body>
+<div id="app">
+  <p>First Name: {{ firstName }}</p>
+  <p>Last Name: {{ lastName }}</p>
+  <p>Dob: {{ dob }}</p>
+  <p>Name (computed): {{ name }}</p>
+  <p>Age (computed): {{ age }}</p>
+  <p>Underage (computed): {{ underage }}</p>
+
+  <input type="text" v-model="firstName">
+
+  <br>
+  <label for="dob">Date of birth</label>
+  <input type="date" v-model="dob" id="dob">
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const {createApp} = Vue;
+
+    let app = createApp({
+        data() {
+            return {
+                firstName: 'Boban',
+                lastName: 'Rakic',
+                dob: '',
+                biloSta: ''
+            }
+        }, computed: {
+            name() {
+                return this.firstName + ' ' + this.lastName
+            },
+
+            age() {
+                let dob = new Date(this.dob);
+                return new Date().getFullYear() - dob.getFullYear();
+            },
+
+            underage() {
+               return this.age < 18
+            }
+        },
+
+        watch: {
+            firstName: 'nameWatcher'
+        },
+
+        methods: {
+          nameWatcher(newVal, oldVal, bla, pera, zika) {
+              console.log('name change', oldVal, newVal, bla, pera, zika, this.firstName);
+              // if (newVal.length > 5) {
+              //     alert('name tooo long!')
+              // }
+
+              this.biloSta = 'awdhoawoidawoidhaw';
+            }
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>
