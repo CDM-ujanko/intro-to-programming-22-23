@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue example</title>
+</head>
+<body>
+<div id="app">
+  <span v-if="bool">{{ message }}</span>
+  <span v-else>The message is hidden</span>
+  <input type="checkbox" v-model="bool">
+  <input type="text" v-model="message">
+  {{ bool }}
+  <br>
+  <button @click="addRandom">Add number</button>
+  {{ arr }}
+  {{sum }}
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const {createApp} = Vue
+
+    let app = createApp({
+        data() {
+            return {
+                message: 'Hello Vue!',
+                bool: false,
+                arr: [1, 2, 6]
+            }
+        },
+
+        watch: {
+            message: function (newVal, oldVal) {
+                console.log(newVal, oldVal);
+            },
+            arr: {
+                handler: function (newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                },
+                deep: true
+            }
+        },
+
+        computed: {
+            sum() {
+                return this.arr.reduce((cur, acc) => cur + acc, 0);
+            }
+        },
+
+        methods: {
+            addRandom() {
+                this.arr.push(Math.floor(Math.random() * 100));
+            }
+        }
+    });
+
+    app.mount('#app')
+</script>
+
+</body>
+</html>
