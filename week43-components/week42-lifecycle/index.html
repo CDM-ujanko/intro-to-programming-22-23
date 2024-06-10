@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component basics</title>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+        <button @click="counters++">Add one</button> 
+        <button @click="counters--">Remove one</button> 
+
+
+        <br>
+        <ul>
+            <li v-for="i in counters">
+                {{ i }}<my-first-component :initial-count="i"></my-first-component>
+            </li>
+        </ul>
+
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
